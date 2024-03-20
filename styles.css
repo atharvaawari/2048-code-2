@@ -35,8 +35,8 @@ body{
 .tile{
     /* --x: 0;
     --y: 0;
-    --background-lightness: 60%;
     --text-lightness: 80%; */
+    /* --background-lightness: 60%; */
     position: absolute;
     display: flex;
     justify-content: center;
