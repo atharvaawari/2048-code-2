@@ -105,9 +105,9 @@ class Cell {
     mergeTiles() {
         if (this.tile == null || this.mergeTile == null) return
         this.tile.value = this.tile.value + this.mergeTile.value
+        console.log(this.tile.value)
         this.mergeTile.remove()
-        this.mergeTile = null
-
+        this.mergeTile = null   
     }
 }
 
