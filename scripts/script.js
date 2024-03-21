@@ -1,8 +1,10 @@
-import Grid from "./grid.js";
+import Grid, {Cell} from "./grid.js";
 import Tile from "./Tile.js";
+
 
 const gameBoard = document.getElementById('gameBoard')
 
+const score = new Cell();
 const grid = new Grid(gameBoard)
 // console.log(grid.randomEmptyCell())
 grid.randomEmptyCell().tile = new Tile(gameBoard)
@@ -124,9 +126,9 @@ function canMove(cells) {
     return cells.some(group => {
         return group.some((cell, index) => {
             if (index === 0) return false
-            if (cell.tile == null) return false
+            if (cell.tile == null) return true
             const moveToCell = group[index - 1]
-            return moveToCell.canAccept(cell)
+            return moveToCell.canAccept(cell.tile)
         })
     })
 }

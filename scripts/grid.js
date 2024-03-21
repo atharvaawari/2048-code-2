@@ -3,8 +3,12 @@
 // --cell-gap: 2vmin;
 
 const GRID_SIZE = 4;
-const CELL_SIZE = 20;
+const CELL_SIZE = 15;
 const CELL_GAP = 2;
+
+const scoreBox = document.getElementById('scoreBox')
+let currentScore =0
+let highScore = 0
 
 export default class Grid {
     #cells
@@ -54,12 +58,13 @@ export default class Grid {
 
 }
 
-class Cell {
+export class Cell {
     #cellElement
     #x
     #y
     #tile
     #mergeTile
+
 
     constructor(cellElement, x, y) {
         this.#cellElement = cellElement
@@ -86,13 +91,14 @@ class Cell {
 
     get mergeTile() {
         return this.#mergeTile
-    }   
+    }
 
     set mergeTile(value) {
         this.#mergeTile = value
         if (value == null) return
         this.#mergeTile.x = this.#x
         this.#mergeTile.y = this.#y
+        // console.log(this.#mergeTile)
     }
 
     canAccept(tile) {
@@ -105,9 +111,12 @@ class Cell {
     mergeTiles() {
         if (this.tile == null || this.mergeTile == null) return
         this.tile.value = this.tile.value + this.mergeTile.value
-        console.log(this.tile.value)
+        // console.log(this.tile.value)
         this.mergeTile.remove()
-        this.mergeTile = null   
+        this.mergeTile = null
+        currentScore += this.tile.value
+        scoreBox.innerHTML = `<h3>Current Score:${currentScore}</h3>`
+        return currentScore
     }
 }
 
