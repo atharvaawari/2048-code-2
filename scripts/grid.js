@@ -6,13 +6,6 @@ const GRID_SIZE = 4;
 let CELL_SIZE = 12;
 const CELL_GAP = 2;
 
-// let screenWidth = window.innerWidth;
-
-// if(screenWidth < 650 ){
-//     CELL_SIZE = 12;
-// } else{
-//     CELL_SIZE = 20;
-// }
 
 const scoreBox = document.getElementById('scoreBox')
 const highBox = document.getElementById('highBox')

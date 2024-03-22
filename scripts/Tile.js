@@ -18,16 +18,16 @@ export default class Tile{
     set value(v){
         this.#value = v 
         this.#tileElement.textContent = v
-        const power = Math.log2(v)
-        const backgroundLightness = 100 - power * 9
-        this.#tileElement.style.setProperty(
-            "--background-lightness",
-            `${backgroundLightness}%`
-            )
-        this.#tileElement.style.setProperty(
-            "--text-lightness",
-            `${backgroundLightness <= 50 ? 90 : 10}%`
-            )
+        if(v <=4096){
+            this.#tileElement.classList.add(`x${v}`);
+        } else{
+            this.#tileElement.classList.add("x8192");
+        }
+        console.log(v)
+        // const power = Math.log2(v)
+        // const backgroundLightness = 100 - power * 9
+        // this.#tileElement.style.setProperty( "--background-lightness", `${backgroundLightness}%` )
+        // this.#tileElement.style.setProperty( "--text-lightness", `${backgroundLightness <= 50 ? 90 : 10}%`)
     }
     set x(value){
         this.#x = value
