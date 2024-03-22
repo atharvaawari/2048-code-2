@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     background: rgb(32, 28, 28);
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .container {
@@ -29,43 +29,46 @@ body {
 
 header {
     text-align: start;
+    width: 100%;
+    padding: 0%;
 }
 
 .titleText{
     text-align: start;
-    width: 70%;
+    width: 50%;
 }
 
 .score-Button{
-    width: 60%;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
     position: relative;
 }
 
 .score-container {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: center;
     margin-bottom: 10%;
-    gap: 3%;
     flex-wrap: wrap;
+    gap: 1.2rem;
     width: 100%;
     position: relative;
 }
 
 .scoreBox {
     background-color: #BBADA0;
-    padding: 3% 7%;
+    padding: 3% 6%;
     border: 1px solid rgb(58, 28, 7);
     border-radius: 8%;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
+    font-size: large;
 }
 
 button{
-    width: 90%;
+    width: 80%;
     margin-bottom: 10%;
     border-radius: 5px;
     padding: 5% 8%;
@@ -83,7 +86,7 @@ h1 {
 
 h3 {
     color: rgb(243, 241, 241);
-    font-size: medium;
+    font-size: large;
     text-align: center;
 }
 
@@ -138,12 +141,11 @@ h3 {
 }
 
 
-/* @media  (max-width: 700px) {
-    #gameBoard{
-        width: 60vmin;
-        margin: auto;
+@media  (max-width: 700px) {
+    header{
+        padding: 5%;
     }
-} */
+}
 
 .x2 {
     background-color: #eee4da;
