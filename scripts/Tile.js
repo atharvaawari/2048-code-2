@@ -23,7 +23,6 @@ export default class Tile{
         } else{
             this.#tileElement.classList.add("x8192");
         }
-        console.log(v)
         // const power = Math.log2(v)
         // const backgroundLightness = 100 - power * 9
         // this.#tileElement.style.setProperty( "--background-lightness", `${backgroundLightness}%` )

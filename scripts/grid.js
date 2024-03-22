@@ -3,7 +3,7 @@
 // --cell-gap: 2vmin;
 
 const GRID_SIZE = 4;
-let CELL_SIZE = 12;
+let CELL_SIZE = 15;
 const CELL_GAP = 2;
 
 
@@ -152,9 +152,4 @@ function resetCurrentScore(){
     updateScore(currentScore, 0)
 }
 
-function adjustCellSizeForViewport() {
-
-}
-
-
-export { updateScore, resetCurrentScore, adjustCellSizeForViewport }
+export { updateScore, resetCurrentScore }

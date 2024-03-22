@@ -1,82 +1,127 @@
-import Grid, {updateScore, resetCurrentScore, adjustCellSizeForViewport} from "./Grid.js";
+import Grid, { updateScore, resetCurrentScore } from "./Grid.js";
 import Tile from "./Tile.js";
 
+let initialX = null;
+let initialY = null;
+let viewportWidth = window.innerWidth;
+
+console.log("Viewport width: " + viewportWidth);
 
 const gameBoard = document.getElementById('gameBoard')
 const newGame = document.getElementById('newGame')
 
 newGame.addEventListener('click', restartGame)
 
-
 const grid = new Grid(gameBoard)
 // console.log(grid.randomEmptyCell())
 grid.randomEmptyCell().tile = new Tile(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
-setupInput()
-// console.log(grid.cellsByColumn)
 
-function setupInput() {
-    window.addEventListener("keydown", handleInput, { once: true })
+if(viewportWidth < 650){
+    setupInputMobile()
+    // console.log("setupdoneMobile")
+} else{
+    setupInputWeb()
+    // console.log("setupdoneWeb")
 }
 
-function restartGame() {
-    // Clear the grid
-    clearGrid();
-    updateScore(0)
-    resetCurrentScore();
+
+
+function setupInputWeb() {
+    window.addEventListener("keydown", handleInputWeb, { once: true })
+}
+
+function setupInputMobile(){
+    gameBoard.addEventListener("event", handleInputMobile, {once: true})
+}
+gameBoard.addEventListener("touchstart", handleTouchStart);
+gameBoard.addEventListener("touchmove", handleTouchMove);
+gameBoard.addEventListener("touchend", handleTouchEnd);
+
+
+async function handleInputMobile(e) {
+    switch (e.key) {
+        case handleSwipeUp():
+            if (!canMoveUp()) {
+                setupInputMobile()
+                return
+            }
+            await moveUp()
+            break;
+        case handleSwipeDown():
+            if (!canMoveUp()) {
+                setupInputMobile()
+                return
+            }
+            await moveDown()
+            break;
+        case handleSwipeLeft():
+            if (!canMoveUp()) {
+                setupInputMobile()
+                return
+            }
+            await moveLeft()
+            break;
+        case handleSwipeRight():
+            if (!canMoveUp()) {
+                setupInputMobile()
+                return
+            }
+            await moveRight()
+            break;
     
-    // Initialize a new game state
-    grid.randomEmptyCell().tile = new Tile(gameBoard);
-    grid.randomEmptyCell().tile = new Tile(gameBoard);
-
-    // Re-setup the input listeners
-    setupInput();
-}
-
-function clearGrid() {
-    for (const cell of grid.cells) {
-        if (cell.tile ) {
-            cell.tile.remove();
-            cell.tile 
-            cell.tile = null;
-        }
+        default:
+           setupInputMobile()
+           return
     }
+
+    grid.cells.forEach(cell => cell.mergeTiles())
+
+    const newTile = new Tile(gameBoard)
+    grid.randomEmptyCell().tile = newTile
+
+    if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
+        newTile.waitForTransition(true).then(() => {
+            alert("You Lose")
+        })
+        return
+    }
+    setupInputMobile()
 }
 
-
-async function handleInput(e) {
+async function handleInputWeb(e) {
     // console.log(e.key)
     switch (e.key) {
         case "ArrowUp":
             if (!canMoveUp()) {
-                setupInput()
+                setupInputWeb()
                 return
             }
             await moveUp()
             break
         case "ArrowDown":
             if (!canMoveDown()) {
-                setupInput()
+                setupInputWeb()
                 return
             }
             await moveDown()
             break
         case "ArrowLeft":
             if (!canMoveLeft()) {
-                setupInput()
+                setupInputWeb()
                 return
             }
             await moveLeft()
             break
         case "ArrowRight":
             if (!canMoveRight()) {
-                setupInput()
+                setupInputWeb()
                 return
             }
             await moveRight()
             break
         default:
-            setupInput()
+            setupInputWeb()
             return
     }
 
@@ -92,9 +137,69 @@ async function handleInput(e) {
         })
         return
     }
-    setupInput()
+    setupInputWeb()
 }
 
+//Mobile
+function handleTouchStart(e) {
+    initialX = e.touches[0].clientX;
+    initialY = e.touches[0].clientY;
+}
+
+function handleSwipeRight() {
+    moveRight()
+    console.log("Right swipe");
+}
+function handleSwipeLeft() {
+    moveLeft()
+    console.log("Left swipe");
+}
+function handleSwipeDown() {
+    moveDown()
+    console.log("Down swipe");
+}
+function handleSwipeUp() {
+    moveUp()
+    console.log("Up swipe");
+}
+
+function handleTouchMove(e) {
+    if (!initialX || !initialY) {
+        return;
+    }
+
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
+
+    const deltaX = currentX - initialX;
+    const deltaY = currentY - initialY;
+
+    // Check if movement is predominantly horizontal or vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal movement
+        if (deltaX > 0) {
+            handleSwipeRight();
+        } else {
+            handleSwipeLeft();
+        }
+    } else {
+        // Vertical movement
+        if (deltaY > 0) {
+            handleSwipeDown();
+        } else {
+            handleSwipeUp();
+        }
+    }
+
+    initialX = null;
+    initialY = null;
+}
+
+function handleTouchEnd(e) {
+    console.log("end");
+}
+
+//web
 function moveUp() {
     slideTiles(grid.cellsByColumn)
 }
@@ -159,4 +264,29 @@ function canMove(cells) {
             return moveToCell.canAccept(cell.tile)
         })
     })
+}
+
+
+function restartGame() {
+    // Clear the grid
+    clearGrid();
+    updateScore(0)
+    resetCurrentScore();
+    
+    // Initialize a new game state
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+
+    // Re-setup the input listeners
+    setupInputWeb();
+}
+
+function clearGrid() {
+    for (const cell of grid.cells) {
+        if (cell.tile ) {
+            cell.tile.remove();
+            cell.tile 
+            cell.tile = null;
+        }
+    }
 }

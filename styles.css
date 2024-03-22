@@ -14,11 +14,17 @@ body {
 }
 
 .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background: #ede5dd;
     padding: 5vmin 5vmin;
     padding-top: 5vmin;
     border-radius: 10px;
     position: relative;
+    height: 100vh;
+
 }
 
 header {
@@ -132,12 +138,12 @@ h3 {
 }
 
 
-@media only screen and (max-width: 700px) {
+/* @media  (max-width: 700px) {
     #gameBoard{
         width: 60vmin;
         margin: auto;
     }
-  }
+} */
 
 .x2 {
     background-color: #eee4da;
