@@ -1,4 +1,4 @@
-import Grid, { Cell } from "./Grid.js";
+import Grid, {updateScore, resetCurrentScore, adjustCellSizeForViewport} from "./Grid.js";
 import Tile from "./Tile.js";
 
 
@@ -6,6 +6,7 @@ const gameBoard = document.getElementById('gameBoard')
 const newGame = document.getElementById('newGame')
 
 newGame.addEventListener('click', restartGame)
+
 
 const grid = new Grid(gameBoard)
 // console.log(grid.randomEmptyCell())
@@ -21,7 +22,9 @@ function setupInput() {
 function restartGame() {
     // Clear the grid
     clearGrid();
-
+    updateScore(0)
+    resetCurrentScore();
+    
     // Initialize a new game state
     grid.randomEmptyCell().tile = new Tile(gameBoard);
     grid.randomEmptyCell().tile = new Tile(gameBoard);
@@ -32,8 +35,9 @@ function restartGame() {
 
 function clearGrid() {
     for (const cell of grid.cells) {
-        if (cell.tile) {
+        if (cell.tile ) {
             cell.tile.remove();
+            cell.tile 
             cell.tile = null;
         }
     }

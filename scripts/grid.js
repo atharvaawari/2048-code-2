@@ -3,12 +3,20 @@
 // --cell-gap: 2vmin;
 
 const GRID_SIZE = 4;
-const CELL_SIZE = 12;
+let CELL_SIZE = 12;
 const CELL_GAP = 2;
 
+// let screenWidth = window.innerWidth;
+
+// if(screenWidth < 650 ){
+//     CELL_SIZE = 12;
+// } else{
+//     CELL_SIZE = 20;
+// }
+
 const scoreBox = document.getElementById('scoreBox')
-const highBox = document.getElementById('highBox') 
-let currentScore =0
+const highBox = document.getElementById('highBox')
+let currentScore = 0
 let highScore = 0
 
 export default class Grid {
@@ -53,10 +61,6 @@ export default class Grid {
         return this.#cells.filter(cell => cell.tile == null)
     }
 
-    set #emptyCells(value){
-
-    }
-
     randomEmptyCell() {
         const randomIndex = Math.floor(Math.random() * this.#emptyCells.length)
         return this.#emptyCells[randomIndex]
@@ -69,7 +73,6 @@ export class Cell {
     #y
     #tile
     #mergeTile
-
 
     constructor(cellElement, x, y) {
         this.#cellElement = cellElement
@@ -120,9 +123,9 @@ export class Cell {
         this.mergeTile.remove()
         this.mergeTile = null
         currentScore += this.tile.value
-        // highScore +=currentScore 
-        scoreBox.innerHTML = `<h3>Score<br/>${currentScore}</h3>`
-        highBox.innerHTML = `<h3>Best<br/>${highScore}</h3>`
+        updateScore(currentScore, this.tile.value)
+        updateHighscore(highScore)
+
         return currentScore
     }
 }
@@ -137,3 +140,28 @@ function createCellElement(gridElement) {
     }
     return cells
 }
+
+function updateScore(currentScore) {
+    scoreBox.innerHTML = `<h3>Score<br/>${currentScore}</h3>`
+    return currentScore
+}
+
+function updateHighscore() {
+    if (currentScore >= highScore) {
+        highScore = currentScore
+    }
+    highBox.innerHTML = `<h3>Best<br/>${highScore}</h3>`
+    return highScore
+}
+
+function resetCurrentScore(){
+    currentScore =0;
+    updateScore(currentScore, 0)
+}
+
+function adjustCellSizeForViewport() {
+
+}
+
+
+export { updateScore, resetCurrentScore, adjustCellSizeForViewport }
