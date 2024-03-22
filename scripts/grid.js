@@ -3,10 +3,11 @@
 // --cell-gap: 2vmin;
 
 const GRID_SIZE = 4;
-const CELL_SIZE = 15;
+const CELL_SIZE = 12;
 const CELL_GAP = 2;
 
 const scoreBox = document.getElementById('scoreBox')
+const highBox = document.getElementById('highBox') 
 let currentScore =0
 let highScore = 0
 
@@ -48,14 +49,18 @@ export default class Grid {
     }
 
     get #emptyCells() {
+        // console.log(this.#cells)
         return this.#cells.filter(cell => cell.tile == null)
+    }
+
+    set #emptyCells(value){
+
     }
 
     randomEmptyCell() {
         const randomIndex = Math.floor(Math.random() * this.#emptyCells.length)
         return this.#emptyCells[randomIndex]
     }
-
 }
 
 export class Cell {
@@ -115,7 +120,9 @@ export class Cell {
         this.mergeTile.remove()
         this.mergeTile = null
         currentScore += this.tile.value
-        scoreBox.innerHTML = `<h3>Current Score:${currentScore}</h3>`
+        // highScore +=currentScore 
+        scoreBox.innerHTML = `<h3>Score<br/>${currentScore}</h3>`
+        highBox.innerHTML = `<h3>Best<br/>${highScore}</h3>`
         return currentScore
     }
 }

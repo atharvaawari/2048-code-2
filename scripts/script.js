@@ -1,10 +1,12 @@
-import Grid, {Cell} from "./grid.js";
+import Grid, { Cell } from "./Grid.js";
 import Tile from "./Tile.js";
 
 
 const gameBoard = document.getElementById('gameBoard')
+const newGame = document.getElementById('newGame')
 
-const score = new Cell();
+newGame.addEventListener('click', restartGame)
+
 const grid = new Grid(gameBoard)
 // console.log(grid.randomEmptyCell())
 grid.randomEmptyCell().tile = new Tile(gameBoard)
@@ -15,6 +17,28 @@ setupInput()
 function setupInput() {
     window.addEventListener("keydown", handleInput, { once: true })
 }
+
+function restartGame() {
+    // Clear the grid
+    clearGrid();
+
+    // Initialize a new game state
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+
+    // Re-setup the input listeners
+    setupInput();
+}
+
+function clearGrid() {
+    for (const cell of grid.cells) {
+        if (cell.tile) {
+            cell.tile.remove();
+            cell.tile = null;
+        }
+    }
+}
+
 
 async function handleInput(e) {
     // console.log(e.key)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,27 @@
   <link rel="stylesheet" href="styles.css">
   <script src="./scripts/script.js" type="module"></script>
 </head>
+
 <body>
   <div class="container">
-    <div class="score-container">
-      <div id="scoreBox" class="scoreBox"><h3>Current Score:</h3></div>
-    <div id="HighBox" class="scoreBox"><h3>High Score:</h3></div>
-    </div>
+     <header style="display: flex;">
+      <div class="titleText">
+      <h1>2048</h1>
+      <p>Join the numbers and get to the 2048 tile!</p>
+      </div>
+      <div class="score-Button">
+        <div class="score-container">
+          <div id="scoreBox" class="scoreBox">
+            <h3>Score<br/></h3>
+          </div>
+          <div id="highBox" class="scoreBox">
+            <h3>Best<br/></h3>
+          </div>
+        </div>
+        <button id="newGame">New Game</button>
+      </div>
+    </header> 
+
     <div id="gameBoard">
       <!-- <div class="cell"></div>
     
@@ -20,4 +36,5 @@
     </div>
   </div>
 </body>
+
 </html>
