@@ -16,14 +16,15 @@ const grid = new Grid(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
 grid.randomEmptyCell().tile = new Tile(gameBoard)
 
-if (viewportWidth < 650) {
-    setupInputMobile()
-    // console.log("setup done Mobile")
-} else {
-    setupInputWeb()
-    // console.log("setup done Web")
-}
-
+// if (viewportWidth < 650) {
+//     setupInputMobile()
+//     // console.log("setup done Mobile")
+// } else {
+//     setupInputWeb()
+//     // console.log("setup done Web")
+// }
+setupInputWeb()
+setupInputMobile()
 function setupInputWeb() {
     window.addEventListener("keydown", handleInputWeb, { once: true })
 }
@@ -39,7 +40,6 @@ async function handleInputWeb(e) {
                 return
             }
             await moveUp()
-            console.log("break")
             break
         case "ArrowDown":
             if (!canMoveDown()) {
@@ -244,7 +244,7 @@ function canMove(cells) {
     return cells.some(group => {
         return group.some((cell, index) => {
             if (index === 0) return false
-            if (cell.tile == null) return false
+            if (cell.tile == null) return true
             const moveToCell = group[index - 1]
             return moveToCell.canAccept(cell.tile)
         })
