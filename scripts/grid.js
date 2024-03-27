@@ -116,9 +116,17 @@ export class Cell {
         this.mergeTile.remove()
         this.mergeTile = null
         currentScore += this.tile.value
+        
+        if (this.tile.value > 0) {
+            let addition = document.createElement("div");
+            addition.classList.add("score-addition");
+            addition.textContent = "+" + this.tile.value;
+            scoreBox.appendChild(addition);
+            console.log(addition)
+        }
+        
         updateScore(currentScore, this.tile.value)
         updateHighscore(highScore)
-
         return currentScore
     }
 }

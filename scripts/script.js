@@ -4,8 +4,8 @@ import Tile from "./Tile.js";
 let initialX = null;
 let initialY = null;
 let viewportWidth = window.innerWidth;
+// console.log("Viewport width: " + viewportWidth);
 
-console.log("Viewport width: " + viewportWidth);
 
 const gameBoard = document.getElementById('gameBoard')
 const newGame = document.getElementById('newGame')
@@ -14,19 +14,15 @@ const headBox = document.getElementById('headBox')
 
 const grid = new Grid(gameBoard)
 
-// if (viewportWidth < 650) {
-//     setupInputMobile()
-//     // console.log("setup done Mobile")
-// } else {
-//     setupInputWeb()
-//     // console.log("setup done Web")
-// }
+
 function loadGame() {
     handleFullScreen()
 
     grid.randomEmptyCell().tile = new Tile(gameBoard)   // console.log(grid.randomEmptyCell())
     grid.randomEmptyCell().tile = new Tile(gameBoard)
 
+    updateScore(0)
+    updateHighscore(0)
     setupInputWeb()
     setupInputMobile()
     startGame.style.display = "none";
@@ -35,6 +31,11 @@ function loadGame() {
 }
 
 function handleFullScreen(){
+
+    if(viewportWidth >=1024){
+        // console.log("It is an desktop user")
+        return
+    }
     let fullScreen = document.documentElement; // To make the whole page fullscreen; adjust as needed
 
     if (fullScreen.requestFullscreen) {
@@ -49,8 +50,12 @@ function handleFullScreen(){
 
     
 }
-window.onload = startGame.addEventListener('click', loadGame)
-document.addEventListener('fullscreenchange', (event) => {
+
+document.addEventListener("DOMContentLoaded", () => {
+    startGame.addEventListener('click', loadGame)
+  });
+
+document.addEventListener('fullscreenchange', () => {
     if(!document.fullscreenElement){
         console.log("User is not available")
     }
@@ -85,7 +90,6 @@ function clearGrid() {
 function setupInputWeb() {
     window.addEventListener("keydown", handleInputWeb, { once: true })
 }
-
 
 //Web EventListner
 async function handleInputWeb(e) {
@@ -138,7 +142,6 @@ async function handleInputWeb(e) {
     }
     setupInputWeb()
 }
-
 
 ///mobile eventListner
 function setupInputMobile() {

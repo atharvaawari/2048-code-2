@@ -1,3 +1,4 @@
+
 * {
     padding: 0%;
     margin: 0%;
@@ -10,8 +11,6 @@ body {
     justify-content: center;
     align-items: center;
     background: #ede5dd;
-    /* height: 100vh; */
-    width: 100vw;
 }
 
 .container {
@@ -20,19 +19,19 @@ body {
     align-items: center;
     flex-direction: column;
     background: #ede5dd;
+    /* background: #030302; */
     padding: 5vmin 5vmin;
     padding-top: 5vmin;
     border-radius: 10px;
     position: relative;
     height: 100vh;
-    /* width: 100vw; */
+    width: calc(var(--grid-size)*var(--cell-size));
 }
 
 header {
     display: none;
     text-align: start;
     width: 100%;
-    padding: 0%;
 }
 
 .titleText{
@@ -55,37 +54,40 @@ header {
     align-items: center;
     margin-bottom: 10%;
     flex-wrap: wrap;
-    gap: 1.2rem;
+    gap: 1vmin;
     width: 100%;
     position: relative;
 }
 
 .scoreBox {
     background-color: #BBADA0;
-    padding: 3% 6%;
-    border: 1px solid rgb(58, 28, 7);
-    border-radius: 8%;
+    padding: 1.5vmin 2.5vmin;
+    border: 1px solid rgb(87, 83, 77);
+    border-radius: 5%;
     margin-bottom: 3%;
-    font-size: large;
+    font-size: 2.5vmin;
 }
 
 #newGame{
     width: 80%;
     margin-bottom: 10%;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 5% 8%;
     outline: none;
     background-color: #8F7A66;
-    border: 1px solid rgb(58, 28, 7);
-    font-size: large;
+    border-style: none;
+    border: 0.5px solid rgb(58, 28, 7);
+    font-size: 3vmin;
+    color:#342a2a;
     font-weight: 600;
+    box-shadow: 0 50px 50px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #startGame{
     width: max-content;
     height: max-content;
     margin-bottom: 10%;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 10% 10%;
     outline: none;
     background-color: #ca8e56;
@@ -115,7 +117,7 @@ h3 {
     background-color: #BBADA0;
     gap: var(--cell-gap);
     border: 1vmin solid #BBADA0;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 2vmin;
     position: relative;
 }
@@ -226,3 +228,29 @@ h3 {
     background-color: #ff2020;
     color: white;
 }
+
+
+.score-addition {
+    position: absolute;
+    right: 30px;
+    color: red;
+    font-size: 100px;
+    line-height: 100px;
+    font-weight: bold;
+    color: rgba(#776E65, .9);
+    z-index: 100;
+    animation: move-up 6s ease-in;
+    animation-fill-mode:both;
+}
+
+@keyframes move-up{
+   0% {
+     top: 100px;
+     opacity: 1;
+   }
+ 
+   100% {
+     top: -50px;
+     opacity: 0;
+   }
+ }
