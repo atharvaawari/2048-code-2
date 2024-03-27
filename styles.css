@@ -9,8 +9,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(32, 28, 28);
+    background: #ede5dd;
     /* height: 100vh; */
+    width: 100vw;
 }
 
 .container {
@@ -24,10 +25,11 @@ body {
     border-radius: 10px;
     position: relative;
     height: 100vh;
-
+    /* width: 100vw; */
 }
 
 header {
+    display: none;
     text-align: start;
     width: 100%;
     padding: 0%;
@@ -67,13 +69,26 @@ header {
     font-size: large;
 }
 
-button{
+#newGame{
     width: 80%;
     margin-bottom: 10%;
     border-radius: 5px;
     padding: 5% 8%;
     outline: none;
     background-color: #8F7A66;
+    border: 1px solid rgb(58, 28, 7);
+    font-size: large;
+    font-weight: 600;
+}
+
+#startGame{
+    width: max-content;
+    height: max-content;
+    margin-bottom: 10%;
+    border-radius: 5px;
+    padding: 10% 10%;
+    outline: none;
+    background-color: #ca8e56;
     border: 1px solid rgb(58, 28, 7);
     font-size: large;
     font-weight: 600;
@@ -94,7 +109,7 @@ h3 {
     /* --grid-size: 4;
     --cell-size: 20vmin;
     --cell-gap: 2vmin; */
-    display: grid;
+    display: none;
     grid-template-columns: repeat(var(--grid-size), var(--cell-size));
     grid-template-rows: repeat(var(--grid-size), var(--cell-size));
     background-color: #BBADA0;

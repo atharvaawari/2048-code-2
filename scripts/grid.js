@@ -152,4 +152,4 @@ function resetCurrentScore(){
     updateScore(currentScore, 0)
 }
 
-export { updateScore, resetCurrentScore }
+export { updateScore, resetCurrentScore, updateHighscore }

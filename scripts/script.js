@@ -1,4 +1,4 @@
-import Grid, { updateScore, resetCurrentScore } from "./Grid.js";
+import Grid, { updateScore, resetCurrentScore, updateHighscore } from "./Grid.js";
 import Tile from "./Tile.js";
 
 let initialX = null;
@@ -9,12 +9,10 @@ console.log("Viewport width: " + viewportWidth);
 
 const gameBoard = document.getElementById('gameBoard')
 const newGame = document.getElementById('newGame')
-
+const startGame = document.getElementById('startGame')
+const headBox = document.getElementById('headBox')
 
 const grid = new Grid(gameBoard)
-// console.log(grid.randomEmptyCell())
-grid.randomEmptyCell().tile = new Tile(gameBoard)
-grid.randomEmptyCell().tile = new Tile(gameBoard)
 
 // if (viewportWidth < 650) {
 //     setupInputMobile()
@@ -23,8 +21,67 @@ grid.randomEmptyCell().tile = new Tile(gameBoard)
 //     setupInputWeb()
 //     // console.log("setup done Web")
 // }
-setupInputWeb()
-setupInputMobile()
+function loadGame() {
+    handleFullScreen()
+
+    grid.randomEmptyCell().tile = new Tile(gameBoard)   // console.log(grid.randomEmptyCell())
+    grid.randomEmptyCell().tile = new Tile(gameBoard)
+
+    setupInputWeb()
+    setupInputMobile()
+    startGame.style.display = "none";
+    gameBoard.style.display = "grid";
+    headBox.style.display = "flex";
+}
+
+function handleFullScreen(){
+    let fullScreen = document.documentElement; // To make the whole page fullscreen; adjust as needed
+
+    if (fullScreen.requestFullscreen) {
+        fullScreen.requestFullscreen();
+    } else if (fullScreen.mozRequestFullScreen) { /* Firefox */
+        fullScreen.mozRequestFullScreen();
+    } else if (fullScreen.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        fullScreen.webkitRequestFullscreen();
+    } else if (fullScreen.msRequestFullscreen) { /* IE/Edge */
+        fullScreen.msRequestFullscreen();
+    } 
+
+    
+}
+window.onload = startGame.addEventListener('click', loadGame)
+document.addEventListener('fullscreenchange', (event) => {
+    if(!document.fullscreenElement){
+        console.log("User is not available")
+    }
+})
+
+function restartGame() {
+    // Clear the grid
+    clearGrid();
+    updateScore(0)
+    resetCurrentScore();
+
+    // Initialize a new game state
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+
+    // Re-setup the input listeners
+    onSubmitGame()
+    setupInputWeb();
+    setupInputMobile();
+}
+
+function clearGrid() {
+    for (const cell of grid.cells) {
+        if (cell.tile) {
+            cell.tile.remove();
+            cell.tile
+            cell.tile = null;
+        }
+    }
+}
+
 function setupInputWeb() {
     window.addEventListener("keydown", handleInputWeb, { once: true })
 }
@@ -158,11 +215,10 @@ async function handleTouchMove(e) {
         }
     }
 
-
     initialX = null;
     initialY = null;
 
-    grid.cells.forEach(cell => cell.mergeTiles())
+    await grid.cells.forEach(cell => cell.mergeTiles())
 
     if (grid.cells.some(cell => cell.tile === null)) {
         const newTile = new Tile(gameBoard)
@@ -253,27 +309,19 @@ function canMove(cells) {
 
 newGame.addEventListener('click', restartGame)
 
-function restartGame() {
-    // Clear the grid
-    clearGrid();
-    updateScore(0)
-    resetCurrentScore();
-
-    // Initialize a new game state
-    grid.randomEmptyCell().tile = new Tile(gameBoard);
-    grid.randomEmptyCell().tile = new Tile(gameBoard);
-
-    // Re-setup the input listeners
-    setupInputWeb();
-    setupInputMobile();
-}
-
-function clearGrid() {
-    for (const cell of grid.cells) {
-        if (cell.tile) {
-            cell.tile.remove();
-            cell.tile
-            cell.tile = null;
-        }
+const onSubmitGame = () => {
+    let options = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            name: 'user1',
+            score: updateHighscore(),
+            userId: 1,
+        }),
     }
+    fetch('https://jsonplaceholder.typicode.com/posts', options)
+        .then((response) => response.json())
+        .then((json) => console.log(json));
 }
