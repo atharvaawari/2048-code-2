@@ -3,7 +3,7 @@
 // --cell-gap: 2vmin;
 
 const GRID_SIZE = 4;
-let CELL_SIZE = 15;
+let CELL_SIZE = 12;
 const CELL_GAP = 2;
 
 
@@ -117,12 +117,12 @@ export class Cell {
         this.mergeTile = null
         currentScore += this.tile.value
         
-        if (this.tile.value > 0) {
+        if (this.tile.value) {
             let addition = document.createElement("div");
-            addition.classList.add("score-addition");
+            addition.classList.add(".score-addition");
             addition.textContent = "+" + this.tile.value;
             scoreBox.appendChild(addition);
-            console.log(addition)
+            console.log(addition.textContent = "+" + this.tile.value)
         }
         
         updateScore(currentScore, this.tile.value)

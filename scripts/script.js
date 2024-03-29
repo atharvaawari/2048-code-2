@@ -150,7 +150,7 @@ function setupInputMobile() {
 
 function handleTouchStart(e) {
     gameBoard.addEventListener("touchmove", handleTouchMove, { passive: true }, { once: true });
-    gameBoard.addEventListener("touchend", handleTouchEnd, { passive: true }, { once: true });
+    // gameBoard.addEventListener("touchend", handleTouchEnd, { passive: true }, { once: true });
 
     initialX = e.touches[0].clientX;
     initialY = e.touches[0].clientY;
@@ -238,9 +238,9 @@ async function handleTouchMove(e) {
 
 }
 
-function handleTouchEnd(e) {
-    // console.log("end");
-}
+// function handleTouchEnd(e) {
+//     // console.log("end");
+// }
 
 //web
 function moveUp() {
@@ -328,3 +328,4 @@ const onSubmitGame = () => {
         .then((response) => response.json())
         .then((json) => console.log(json));
 }
+

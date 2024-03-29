@@ -10,30 +10,32 @@
 </head>
 
 <body>
-  <div class="container">
-    <button id="startGame">Start Game</button>
-     <header id="headBox">
-      <div class="titleText">
-      <h1>2048</h1>
-      <p>Join the numbers and get to the 2048 tile!</p>
-      </div>
-      <div class="score-Button">
-        <div class="score-container">
-          <div id="scoreBox" class="scoreBox">
-            <h3>Score<br/></h3>
+  <div id="gameFrame">
+    <div class="container">
+      <button id="startGame">Start Game</button>
+      <div class="boardFrame">
+        <header id="headBox">
+          <div class="titleText">
+            <h1>2048</h1>
+            <p>Join the numbers and get to the <span style="color:#776e65 ; font-size:x-large; font-weight: 600;">2048 tile!</span></p>
           </div>
-          <div id="highBox" class="scoreBox">
-            <h3>Best<br/></h3>
+          <div class="score-Button">
+            <div class="score-container">
+              <div id="scoreBox" class="scoreBox">
+                <h3>Score<br /></h3>
+              </div>
+              <div id="highBox" class="scoreBox">
+                <h3>Best<br /></h3>
+              </div>
+            </div>
+            <button id="newGame">New Game</button>
           </div>
-        </div>
-        <button id="newGame">New Game</button>
+        </header>
+        <main id="gameBoard">
+          <!-- <div class="cell"></div>
+           <div class="tile">4</div> -->
+        </main>
       </div>
-    </header> 
-
-    <div id="gameBoard">
-      <!-- <div class="cell"></div>
-    
-       <div class="tile">4</div> -->
     </div>
   </div>
 </body>
