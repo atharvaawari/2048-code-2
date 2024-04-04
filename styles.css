@@ -14,9 +14,30 @@ body {
     background-color: black;
 }
 
+#back-btn{
+    background-color: #edc651;
+    color: rgb(11, 11, 37);
+    border-color: black;
+    border: 1px solid;
+    padding: 7px 5px;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    z-index: 20;
+    /* cursor: move; */
+    cursor: pointer;
+    top: 20px;
+    left: 0px;
+    font-weight: 600;
+    display: none;
+}
+#back-btn p{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
 #gameFrame{
     padding-top: 3vh;
-    width: 45vw;
     height: 95vh;
     background-color: white;
     padding: 20px 20px;
@@ -30,7 +51,7 @@ body {
     flex-direction: column;
     background: #ede5dd;
     /* padding: 5vmin 5vmin; */
-    padding-top: 5vmin;
+    padding-top: 20px;
     border-radius: 2px;
     position: relative;
     height: 100%;
@@ -125,17 +146,14 @@ h3 {
     height: auto;
 }
 #gameBoard {
-    /* --grid-size: 4;
-    --cell-size: 20vmin;
-    --cell-gap: 2vmin; */
     display: none;
     grid-template-columns: repeat(var(--grid-size), var(--cell-size));
     grid-template-rows: repeat(var(--grid-size), var(--cell-size));
     background-color: #BBADA0;
     gap: var(--cell-gap);
-    border: 1vmin solid #BBADA0;
+    border: 10px solid #BBADA0;
     border-radius: 5px;
-    padding: 2vmin;
+    padding: 20px;
     position: relative;
     width: fit-content;
     margin: 0 auto;
@@ -143,7 +161,7 @@ h3 {
 
 .cell {
     background: #CDC1B4;
-    border-radius: 1vmin;
+    border-radius: 10px;
 }
 
 .tile {
@@ -158,10 +176,12 @@ h3 {
     width: var(--cell-size);
     height: var(--cell-size);
     /* background: rgb(139, 89, 74); */
-    border-radius: 1vmin;
+    border-radius: 10px;
     top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
     left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
-    font-size: 7vmin;
+    /* top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+    left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap)); */
+    font-size: 40px;
     font-weight: 600;
     background-color: hsl(11, 90%, var(--background-lightness));
     color: hsl(10, 25%, var(--text-lightness));
@@ -188,6 +208,17 @@ h3 {
         height: 100vh;
         width: 100vw;
     } 
+
+    #back-btn{
+        top: 50px;
+        
+    }
+}
+@media screen and (min-width: 1024) {
+    #back-btn{
+        padding: 5px 10px;
+        
+    }
 }
 
 

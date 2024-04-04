@@ -3,8 +3,8 @@
 // --cell-gap: 2vmin;
 
 const GRID_SIZE = 4;
-let CELL_SIZE = 12;
-const CELL_GAP = 2;
+const CELL_SIZE = 60;
+const CELL_GAP =16;
 
 
 const scoreBox = document.getElementById('scoreBox')
@@ -17,8 +17,8 @@ export default class Grid {
 
     constructor(gridElement) {
         gridElement.style.setProperty("--grid-size", GRID_SIZE)
-        gridElement.style.setProperty("--cell-size", `${CELL_SIZE}vmin`)
-        gridElement.style.setProperty("--cell-gap", `${CELL_GAP}vmin`)
+        gridElement.style.setProperty("--cell-size", `${CELL_SIZE}px`)
+        gridElement.style.setProperty("--cell-gap", `${CELL_GAP}px`)
         this.#cells = createCellElement(gridElement).map((cellElement, index) => {
             return new Cell(
                 cellElement,
@@ -158,6 +158,10 @@ function updateHighscore() {
 function resetCurrentScore(){
     currentScore =0;
     updateScore(currentScore, 0)
+}
+
+function getViewPortWidth(){
+    return window.innerWidth;
 }
 
 export { updateScore, resetCurrentScore, updateHighscore }

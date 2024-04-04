@@ -29,12 +29,15 @@ export default class Tile{
         // this.#tileElement.style.setProperty( "--text-lightness", `${backgroundLightness <= 50 ? 90 : 10}%`)
     }
     set x(value){
+        
         this.#x = value
         this.#tileElement.style.setProperty("--x", value)
+        console.log("x",value)
     }
     set y(value){
         this.#y = value
         this.#tileElement.style.setProperty("--y", value)
+        console.log("y",value)
     }
 
     remove() {

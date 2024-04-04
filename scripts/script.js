@@ -3,38 +3,121 @@ import Tile from "./Tile.js";
 
 let initialX = null;
 let initialY = null;
-let viewportWidth = window.innerWidth;
 // console.log("Viewport width: " + viewportWidth);
-
+let viewportWidth = window.innerWidth;
 
 const gameBoard = document.getElementById('gameBoard')
 const newGame = document.getElementById('newGame')
 const startGame = document.getElementById('startGame')
 const headBox = document.getElementById('headBox')
+const backBtn = document.getElementById('back-btn')
 
 const grid = new Grid(gameBoard)
 
-
 function loadGame() {
+    restartGame()
     handleFullScreen()
-
-    grid.randomEmptyCell().tile = new Tile(gameBoard)   // console.log(grid.randomEmptyCell())
-    grid.randomEmptyCell().tile = new Tile(gameBoard)
-
     updateScore(0)
     updateHighscore(0)
-    setupInputWeb()
-    setupInputMobile()
     startGame.style.display = "none";
     gameBoard.style.display = "grid";
     headBox.style.display = "flex";
+    backBtn.style.display = "block";
 }
 
-function handleFullScreen(){
+function backToStartgame() {
+    startGame.style.display = "block";
+    gameBoard.style.display = "none";
+    headBox.style.display = "none";
+    backBtn.style.display = "none";
+    // clearGrid();
+}
 
-    if(viewportWidth >=1024){
+backBtn.addEventListener('click', function(e){
+    backToStartgame()
+})
+// function goTomainMenu() {
+//     let initialX = 0,
+//         initialY = 0;
+//     let moveElement = false;
+
+//     //Events Object
+//     let events = {
+//         mouse: {
+//             down: "mousedown",
+//             move: "mousemove",
+//             up: "mouseup",
+//         },
+//         touch: {
+//             down: "touchstart",
+//             move: "touchmove",
+//             up: "touchend",
+//         },
+//     };
+
+//     let deviceType = "";
+
+//     //Detech touch device
+//     const isTouchDevice = () => {
+//         try {
+//             //We try to create TouchEvent (it would fail for desktops and throw error)
+//             document.createEvent("TouchEvent");
+//             deviceType = "touch";
+//             return true;
+//         } catch (e) {
+//             deviceType = "mouse";
+//             return false;
+//         }
+//     };
+//     isTouchDevice();
+
+//     //Start (mouse down / touch start)
+//     backBtn.addEventListener(events[deviceType].down, (e) => {
+//         e.preventDefault();
+//         //initial x and y points
+//         initialX = !isTouchDevice() ? e.clientX : e.touches[0].clientX;
+//         initialY = !isTouchDevice() ? e.clientY : e.touches[0].clientY;
+
+//         //Start movement
+//         moveElement = true;
+//     });
+
+//     //Move
+//     backBtn.addEventListener(events[deviceType].move, (e) => {
+//         //if movement == true then set top and left to new X andY while removing any offset
+//         if (moveElement) {
+//             e.preventDefault();
+//             let newX = !isTouchDevice() ? e.clientX : e.touches[0].clientX;
+//             let newY = !isTouchDevice() ? e.clientY : e.touches[0].clientY;
+//             backBtn.style.top =
+//                 backBtn.offsetTop - (initialY - newY) + "px";
+//             backBtn.style.left =
+//                 backBtn.offsetLeft - (initialX - newX) + "px";
+//             initialX = newX;
+//             initialY = newY;
+//         }
+//     });
+//     const stopMovement = function(e){
+//         moveElement = false;
+//        }
+//     //mouse up / touch end
+//     backBtn.addEventListener( 
+//         events[deviceType].up, stopMovement()
+//     );
+
+//     backBtn.addEventListener("mouseleave", stopMovement);
+//     backBtn.addEventListener(events[deviceType].up, (e) => {
+//         moveElement = false;
+//     });
+// }
+
+// goTomainMenu()
+
+function handleFullScreen() {
+
+    if (viewportWidth >= 1024) {
         // console.log("It is an desktop user")
-        return
+        // return
     }
     let fullScreen = document.documentElement; // To make the whole page fullscreen; adjust as needed
 
@@ -46,18 +129,18 @@ function handleFullScreen(){
         fullScreen.webkitRequestFullscreen();
     } else if (fullScreen.msRequestFullscreen) { /* IE/Edge */
         fullScreen.msRequestFullscreen();
-    } 
-
-    
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     startGame.addEventListener('click', loadGame)
-  });
+
+});
 
 document.addEventListener('fullscreenchange', () => {
-    if(!document.fullscreenElement){
+    if (!document.fullscreenElement) {
         console.log("User is not available")
+        backToStartgame()
     }
 })
 
